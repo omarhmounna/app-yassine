@@ -33,7 +33,6 @@ function CustomDropdown({ label, options, value, onChange, isMulti = false }) {
             setSearch('');
         }
     };
-
     return (
         <div ref={dropdownRef} className="relative w-full sm">
             <button
