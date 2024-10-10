@@ -1,8 +1,7 @@
 import React, { useEffect, useState, useRef } from 'react';
 import axios from 'axios';
 import moment from 'moment';
-import bcrypt from 'bcryptjs';
-import { MenuIcon, MaterialSymbolsPersonAddOutlineRounded, RefreshIcon, LockClosedIcon, EyeIcon, EyeOffIcon } from './Icons';
+import { MenuIcon, MaterialSymbolsPersonAddOutlineRounded, RefreshIcon } from './Icons';
 import { useGlobalContext } from '@/contexts/GlobalContext';
 import { CloseIcon, SearchIcon } from "@/components/Select/components/Icons";
 import SearchInput from './Select/components/SearchInput';
@@ -27,12 +26,6 @@ const MoneyManagementTable = ({ setIsMenu, data, setData }) => {
         argent_restant: ''
     });
     const [noterOptions, setNoterOptions] = useState([]);
-    const [isAuthenticated, setIsAuthenticated] = useState(false);
-    const [password, setPassword] = useState('');
-    const [showErrorPopup, setShowErrorPopup] = useState(false);
-    const [showPassword, setShowPassword] = useState(false);
-
-    const correctPasswordHash = "$2a$10$YIvOLdf3EtGVqK4hwqpaxe5R/6hK7UXu5UhMHcELgD4aTsLDzn6cW";
 
     const getListOptions = (list) => list.map((p) => ({
         label: p.name,
@@ -40,7 +33,6 @@ const MoneyManagementTable = ({ setIsMenu, data, setData }) => {
     }));
 
     useEffect(() => {
-        // console.log('',bcrypt.hashSync('here change pass', 10));
         axios.get('https://yassine.anaqamaghribiya.com/api.php')
             .then(response => setNoterOptions(response.data))
             .catch(error => console.error('Error fetching noter options:', error));
@@ -105,86 +97,6 @@ const MoneyManagementTable = ({ setIsMenu, data, setData }) => {
         item.depot.toString().includes(searchItem) ||
         item.argent_restant.toString().includes(searchItem)
     );
-
-    const handlePasswordSubmit = () => {
-        const isValidPassword = bcrypt.compareSync(password, correctPasswordHash);
-        if (isValidPassword) {
-            setIsAuthenticated(true);
-            setShowErrorPopup(false);
-        } else {
-            setShowErrorPopup(true);
-        }
-    };
-
-    const handleCloseErrorPopup = () => {
-        setShowErrorPopup(false);
-    };
-
-    if (!isAuthenticated) {
-        return (
-            <div className="flex items-center justify-center min-h-screen w-full bg-gradient-to-br from-blue-100 to-green-100">
-                <div className="w-full max-w-md p-4">
-                    <div className="bg-white shadow-2xl rounded-3xl px-8 pt-6 pb-8 mb-4">
-                        <div className="flex justify-center mb-8">
-                            <LockClosedIcon className="h-12 w-12 text-blue-500" />
-                        </div>
-                        <h2 className="mb-6 text-2xl font-bold text-center text-gray-700">Enter Password</h2>
-                        <div className="relative mb-6">
-                            <input 
-                                type={showPassword ? "text" : "password"} 
-                                value={password} 
-                                onChange={(e) => setPassword(e.target.value)} 
-                                className="w-full p-3 pl-10 border border-gray-300 rounded-md leading-5 bg-white placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition duration-300"
-                                placeholder="Password"
-                            />
-                            <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-                                <LockClosedIcon className="h-5 w-5 text-gray-400" />
-                            </div>
-                            <button 
-                                type="button"
-                                className="absolute inset-y-0 right-0 flex items-center pr-3"
-                                onClick={() => setShowPassword(!showPassword)}
-                            >
-                                {showPassword ? <EyeOffIcon className="h-5 w-5 text-gray-400" /> : <EyeIcon className="h-5 w-5 text-gray-400" />}
-                            </button>
-                        </div>
-                        <button 
-                            onClick={handlePasswordSubmit} 
-                            className="w-full flex justify-center py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-gradient-to-r from-blue-500 to-green-500 hover:from-blue-600 hover:to-green-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 transition duration-300 mb-4"
-                        >
-                            Submit
-                        </button>
-                        <button 
-                            onClick={() => setIsMenu(true)} 
-                            className="w-full flex justify-center py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-gradient-to-r from-blue-500 to-green-500 hover:from-blue-600 hover:to-green-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 transition duration-300"
-                        >
-                            Return to Home
-                        </button>
-                    </div>
-                </div>
-                {showErrorPopup && (
-                    <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
-                        <div className="bg-white rounded-lg shadow-xl overflow-hidden max-w-md w-full">
-                            <div className="bg-red-500 text-white font-bold py-2 px-4">
-                                Incorrect Password
-                            </div>
-                            <div className="p-4">
-                                <p className="text-gray-700">The password you entered is incorrect. Please try again.</p>
-                            </div>
-                            <div className="bg-gray-100 px-4 py-3 sm:px-6 sm:flex sm:flex-row-reverse">
-                                <button
-                                    onClick={handleCloseErrorPopup}
-                                    className="w-full inline-flex justify-center rounded-md border border-transparent shadow-sm px-4 py-2 bg-red-600 text-base font-medium text-white hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-500 sm:ml-3 sm:w-auto sm:text-sm"
-                                >
-                                    Close
-                                </button>
-                            </div>
-                        </div>
-                    </div>
-                )}
-            </div>
-        );
-    }
 
     return (
         <div className="w-full h-full flex flex-col">
