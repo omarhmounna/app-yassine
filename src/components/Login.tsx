@@ -13,7 +13,7 @@ const Login = ({ setIsLoggedIn }) => {
         setError('');
 
         try {
-            const response = await fetch('https://yassine.anaqamaghribiya.com/login.php', {
+            const response = await fetch('https://api.anaqamaghribiya.store/login.php', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',

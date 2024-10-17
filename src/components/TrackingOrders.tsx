@@ -56,8 +56,8 @@ const TrackingOrdersDashboard: React.FC = () => {
     const fetchData = async () => {
       try {
         const [productsResponse, countsResponse] = await Promise.all([
-          fetch('https://yassine.anaqamaghribiya.com/products.php'),
-          fetch('https://yassine.anaqamaghribiya.com/productscount.php')
+          fetch('https://api.anaqamaghribiya.store/products.php'),
+          fetch('https://api.anaqamaghribiya.store/productscount.php')
         ]);
 
         if (!productsResponse.ok || !countsResponse.ok) {

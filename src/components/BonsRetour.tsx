@@ -62,7 +62,7 @@ type ReferenceStatus = {
   status: string;
 };
 
-const API_URL = 'https://yassine.anaqamaghribiya.com/GetBonRetour.php';
+const API_URL = 'https://api.anaqamaghribiya.store/GetBonRetour.php';
 
 // AddReferencePopup component
 const AddReferencePopup = ({ isOpen, onClose, onAdd }) => {

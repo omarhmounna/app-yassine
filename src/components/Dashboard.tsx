@@ -40,7 +40,7 @@ const QuickStats = ({ confirmedCost, deliveredCost, deliveryRate, netProfit, fac
   const [moneyComingCasa, setMoneyComingCasa] = useState('0');
 
   useEffect(() => {
-    axios.get('https://yassine.anaqamaghribiya.com/Ispayed.php')
+    axios.get('https://api.anaqamaghribiya.store/Ispayed.php')
       .then(response => {
         setMoneyComingCasa(response.data.total_price);
       })
@@ -284,7 +284,7 @@ const DeliveryStatisticsChart = () => {
   const [selectedYear, setSelectedYear] = useState<number>(new Date().getFullYear());
 
   useEffect(() => {
-    axios.get('https://yassine.anaqamaghribiya.com/Statistiquescolis.php')
+    axios.get('https://api.anaqamaghribiya.store/Statistiquescolis.php')
       .then(response => {
         const data = response.data;
         
@@ -604,7 +604,7 @@ const advertisingSpending = [
 
   const [dailyData ,setDailyData]=useState([]);
   useEffect(() => {
-    axios.get('https://yassine.anaqamaghribiya.com/moneyManagementChart.php')
+    axios.get('https://api.anaqamaghribiya.store/moneyManagementChart.php')
         .then(response => {
           console.log('Noter options:', response.data);
           setDailyData(response.data);

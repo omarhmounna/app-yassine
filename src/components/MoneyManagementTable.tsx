@@ -33,7 +33,7 @@ const MoneyManagementTable = ({ setIsMenu, data, setData }) => {
     }));
 
     useEffect(() => {
-        axios.get('https://yassine.anaqamaghribiya.com/api.php')
+        axios.get('https://api.anaqamaghribiya.store/api.php')
             .then(response => setNoterOptions(response.data))
             .catch(error => console.error('Error fetching noter options:', error));
     }, []);
@@ -64,7 +64,7 @@ const MoneyManagementTable = ({ setIsMenu, data, setData }) => {
     };
 
     const handleSave = () => {
-        axios.post('https://yassine.anaqamaghribiya.com/add_data.php', newRow)
+        axios.post('https://api.anaqamaghribiya.store/add_data.php', newRow)
             .then(response => {
                 if (response.data.success) {
                     const updatedData = [newRow, ...data];

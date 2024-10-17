@@ -37,7 +37,7 @@ export default function OrderAdd({ data, setData, IsPayed, setIsPayed, addObject
 
     const generateOrderId = async () => {
         try {
-            const response = await axios.get('https://yassine.anaqamaghribiya.com/get_orderId.php');
+            const response = await axios.get('https://api.anaqamaghribiya.store/get_orderId.php');
             if (response.data && response.data.orderId) {
                 return response.data.orderId;
             } else {

@@ -21,7 +21,7 @@ const StockTable = ({ setIsMenu }) => {
     const pageSize = 3;
 
     const fetchData = () => {
-        axios.get('https://yassine.anaqamaghribiya.com/stock.php')
+        axios.get('https://api.anaqamaghribiya.store/stock.php')
             .then(response => {
                 const nonNullData = response.data.filter((item) => item !== null);
                 setData(nonNullData);
@@ -52,7 +52,7 @@ const StockTable = ({ setIsMenu }) => {
     );
 
     const handleSave = () => {
-        axios.post('https://yassine.anaqamaghribiya.com/stock.php', filteredData, {
+        axios.post('https://api.anaqamaghribiya.store/stock.php', filteredData, {
             headers: {
                 'Content-Type': 'application/json'
             }
@@ -82,7 +82,7 @@ const StockTable = ({ setIsMenu }) => {
 
     const handleAddColumn = () => {
         if (newColumnName) {
-            axios.get(`https://yassine.anaqamaghribiya.com/Add-culomn-stock.php?column_name=${newColumnName}`)
+            axios.get(`https://api.anaqamaghribiya.store/Add-culomn-stock.php?column_name=${newColumnName}`)
                 .then(response => {
                     if (response.status === 200) {
                         setColumns([...columns, newColumnName]);

@@ -112,7 +112,7 @@ export default function Home() {
 
     function deleteSelected() {
         setLoadingDelete(true);
-        axios.post('https://yassine.anaqamaghribiya.com/batch-operation.php', { delete: selectedElements })
+        axios.post('https://api.anaqamaghribiya.store/batch-operation.php', { delete: selectedElements })
             .then((res) => {
                 setOrders!(Orders!.filter((e: any) => !selectedElements.includes(e.orderId)));
                 setBatchOperation(false);
@@ -271,7 +271,7 @@ export default function Home() {
                                             e.preventDefault();
                                             setIsAction(true);
                                             setIsDownloadConfirm(false);
-                                            window.open('https://yassine.anaqamaghribiya.com/confirmed.php?rnd=' + Math.random(), '_blank');
+                                            window.open('https://api.anaqamaghribiya.store/confirmed.php?rnd=' + Math.random(), '_blank');
                                             setIsAction(false);
                                         }}
                                         className={`bg-blue-500 px-4 text-white rounded text-sm p-2 mx-4 flex`}

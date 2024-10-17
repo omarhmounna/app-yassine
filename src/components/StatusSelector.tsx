@@ -9,7 +9,7 @@ export default function StatusSelector({ statusList, Cancel, Elements, notificat
 
     const setElementsStatus = (Elements, status) => {
         setLoading(true);
-        axios.post("https://yassine.anaqamaghribiya.com/batch-operation.php", { edit: Elements, status: status })
+        axios.post("https://api.anaqamaghribiya.store/batch-operation.php", { edit: Elements, status: status })
             .then(() => {
                 setNotification({ show: true, message: "Status has been updated successfully!", error: false });
                 setTimeout(() => setNotification({ show: false, message: "", error: false }), 2000); // Hide notification after 2 seconds
